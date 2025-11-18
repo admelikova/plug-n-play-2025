@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://dajyvpt4404ft"]
+
+[ext_resource type="Script" uid="uid://dxgism7ewl4sc" path="res://DONOTEDITME/game/system/level_loader.gd" id="1_uvpqj"]
+[ext_resource type="Shader" uid="uid://cjicprbf16put" path="res://DONOTEDITME/assets/shaders/diamond_sweep.gdshader" id="2_4icfv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v61qb"]
+shader = ExtResource("2_4icfv")
+shader_parameter/progress = 0.0
+shader_parameter/size = 10.0
+
+[sub_resource type="Animation" id="Animation_1ch6n"]
+resource_name = "CLOSE"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sweep:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_slfxu"]
+resource_name = "OPEN"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sweep:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 2.0]
+}
+
+[sub_resource type="Animation" id="Animation_kuom1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sweep:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ras5j"]
+_data = {
+&"CLOSE": SubResource("Animation_1ch6n"),
+&"OPEN": SubResource("Animation_slfxu"),
+&"RESET": SubResource("Animation_kuom1")
+}
+
+[node name="LevelLoader" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_uvpqj")
+
+[node name="Sweep" type="ColorRect" parent="."]
+z_index = 10
+material = SubResource("ShaderMaterial_v61qb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ras5j")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]

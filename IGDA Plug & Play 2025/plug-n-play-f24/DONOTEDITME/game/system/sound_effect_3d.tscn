@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://gkrihulfe7s5"]
+
+[node name="SoundEffect" type="AudioStreamPlayer3D"]
+process_mode = 3
+volume_db = -10.0
+bus = &"SFX"

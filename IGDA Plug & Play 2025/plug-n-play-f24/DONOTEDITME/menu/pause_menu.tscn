@@ -1,0 +1,212 @@
+[gd_scene load_steps=9 format=3 uid="uid://cavhiq8b25tph"]
+
+[ext_resource type="Script" uid="uid://booy4srpk2mmr" path="res://DONOTEDITME/menu/pause_menu.gd" id="1_6uco4"]
+[ext_resource type="Shader" uid="uid://rivxdr8anfns" path="res://DONOTEDITME/assets/shaders/gaussian_blur.gdshader" id="2_k3ki6"]
+[ext_resource type="Theme" uid="uid://dicrejglob83v" path="res://DONOTEDITME/assets/menu/ui_theme.tres" id="3_bhwqx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eg130"]
+shader = ExtResource("2_k3ki6")
+shader_parameter/screen_offset = Vector2(0, 0)
+shader_parameter/strength = 0.0
+
+[sub_resource type="Animation" id="Animation_igjy2"]
+resource_name = "CLOSE"
+length = 0.3
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlurLayer/Blur:material:shader_parameter/strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(40, -0.25, 0, 0.1, 44, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MenuElements/ColorRect:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(74, -0.15, 0, 0.15, 0, -600, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+
+[sub_resource type="Animation" id="Animation_fjdi3"]
+resource_name = "OPEN"
+length = 0.3
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlurLayer/Blur:material:shader_parameter/strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.1, 44, 40, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MenuElements/ColorRect:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-600, -0.15, 0, 0.15, 0, 74, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+
+[sub_resource type="Animation" id="Animation_ickw8"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlurLayer/Blur:material:shader_parameter/strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MenuElements/ColorRect:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-600, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_47jph"]
+_data = {
+&"CLOSE": SubResource("Animation_igjy2"),
+&"OPEN": SubResource("Animation_fjdi3"),
+&"RESET": SubResource("Animation_ickw8")
+}
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_6uco4")
+
+[node name="BlurLayer" type="CanvasLayer" parent="."]
+
+[node name="Blur" type="ColorRect" parent="BlurLayer"]
+material = SubResource("ShaderMaterial_eg130")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuElements" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="MenuElements"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -375.0
+offset_top = -924.0
+offset_right = 375.0
+offset_bottom = -524.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_bhwqx")
+color = Color(0.2478, 0.59, 0.36757, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuElements/ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.032
+anchor_top = 0.19
+anchor_right = 0.965333
+anchor_bottom = 0.79
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MasterVolumeSlider" type="HBoxContainer" parent="MenuElements/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MenuElements/ColorRect/VBoxContainer/MasterVolumeSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Master:"
+
+[node name="HSlider" type="HSlider" parent="MenuElements/ColorRect/VBoxContainer/MasterVolumeSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.49
+
+[node name="SFXSlider" type="HBoxContainer" parent="MenuElements/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MenuElements/ColorRect/VBoxContainer/SFXSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SFX:"
+
+[node name="HSlider" type="HSlider" parent="MenuElements/ColorRect/VBoxContainer/SFXSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.49
+
+[node name="MusicSlider" type="HBoxContainer" parent="MenuElements/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MenuElements/ColorRect/VBoxContainer/MusicSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Music:"
+
+[node name="HSlider" type="HSlider" parent="MenuElements/ColorRect/VBoxContainer/MusicSlider"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.49
+
+[node name="ControlButton" type="Button" parent="MenuElements/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Controls"
+
+[node name="FullScreenButton" type="Button" parent="MenuElements/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Toggle Fullscreen
+"
+
+[node name="RestartButton" type="Button" parent="MenuElements/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Restart Level"
+
+[node name="ContinueButton" type="Button" parent="MenuElements/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Continue Playing"
+
+[node name="ReturnButton" type="Button" parent="MenuElements/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Return to Title"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_47jph")
+}
+autoplay = "RESET"
+
+[connection signal="value_changed" from="MenuElements/ColorRect/VBoxContainer/MasterVolumeSlider/HSlider" to="." method="_on_slider_changed"]
+[connection signal="value_changed" from="MenuElements/ColorRect/VBoxContainer/SFXSlider/HSlider" to="." method="_on_slider_changed"]
+[connection signal="value_changed" from="MenuElements/ColorRect/VBoxContainer/MusicSlider/HSlider" to="." method="_on_slider_changed"]
+[connection signal="pressed" from="MenuElements/ColorRect/VBoxContainer/FullScreenButton" to="." method="_on_fullscreen_press"]
+[connection signal="pressed" from="MenuElements/ColorRect/VBoxContainer/RestartButton" to="." method="_on_restart_press"]
+[connection signal="pressed" from="MenuElements/ColorRect/VBoxContainer/ContinueButton" to="." method="_on_continue_press"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]

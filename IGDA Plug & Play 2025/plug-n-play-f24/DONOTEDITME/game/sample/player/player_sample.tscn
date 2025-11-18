@@ -1,0 +1,118 @@
+[gd_scene load_steps=12 format=3 uid="uid://xb5i5ynpctpq"]
+
+[ext_resource type="Script" uid="uid://cviowfvj6frq" path="res://DONOTEDITME/game/sample/player/player_sample.gd" id="2_ebjth"]
+[ext_resource type="Texture2D" uid="uid://ofoqedjacn88" path="res://DONOTEDITME/assets/sprites/player/jammy.png" id="2_tdwd0"]
+[ext_resource type="PackedScene" uid="uid://c1jwyvxr2ohvb" path="res://DONOTEDITME/game/sample/player/player_hitbox.tscn" id="3_oihoa"]
+[ext_resource type="Script" uid="uid://ba1jqafgte36v" path="res://DONOTEDITME/game/sample/player/player_hitbox.gd" id="4_u5s6u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_md56h"]
+size = Vector2(22, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nhygf"]
+
+[sub_resource type="Animation" id="Animation_6wvr5"]
+resource_name = "IDLE"
+length = 6.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 2, 2.5, 3.5, 4, 4.4, 4.5, 4.6, 5, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 1, 0, 1, 0, 2, 3, 0, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_v8vdk"]
+resource_name = "JUMP"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+
+[sub_resource type="Animation" id="Animation_wsmyf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_51ypg"]
+resource_name = "WALK"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_csn7c"]
+_data = {
+"IDLE": SubResource("Animation_6wvr5"),
+"JUMP": SubResource("Animation_v8vdk"),
+"RESET": SubResource("Animation_wsmyf"),
+"WALK": SubResource("Animation_51ypg")
+}
+
+[node name="Player" type="CharacterBody2D"]
+editor_description = "This is a very basic implementation of the player controller which has horizontal movement, jumping, and an animated sprite. DO NOT modify this packed scene or the player.gd script. You should instead create a script that extends the Player class and create a New Inherited Scene (by right clicking the player.tscn file and clicking \"New Inherited Scene\") to create your own custom player functionality."
+collision_mask = 2
+script = ExtResource("2_ebjth")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+editor_description = "This is the player sprite. Nothing too fancy"
+z_index = 1
+texture = ExtResource("2_tdwd0")
+hframes = 4
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+editor_description = "This is the player's collision box. By default it is a rectangle."
+shape = SubResource("RectangleShape2D_md56h")
+
+[node name="PlayerHitbox" parent="." instance=ExtResource("3_oihoa")]
+editor_description = "This is a basic player hurtbox component (separate from the collision box) designed to detect hazards and enemies. In order for the hurtbox to detect something as dangerous it must be on the Enemy, EnemyProjectile, or Hazard collision layer. Other than that this is just a fancy Area2D node that binds to the player class's default hurt method. Even if you're customizing player behavior I encourage you to use this custom scene.
+"
+script = ExtResource("4_u5s6u")
+
+[node name="PlayerHurtbox" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtbox"]
+shape = SubResource("RectangleShape2D_nhygf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_csn7c")
+}

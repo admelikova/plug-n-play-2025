@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bj6bmq5rnksl1"]
+
+[ext_resource type="Script" uid="uid://dm52hqu27lrbd" path="res://DONOTEDITME/game/system/level.gd" id="1_7wnnl"]
+[ext_resource type="PackedScene" uid="uid://cavhiq8b25tph" path="res://DONOTEDITME/menu/pause_menu.tscn" id="2_fhrk2"]
+
+[node name="Level" type="Node2D"]
+editor_description = "This is the base scene for your level! Your level must at the very least contain the following objects:
+1. A PauseMenu instance
+2. A level end marker (either as an individual scene or part of a tilemap)
+3. A Player (or some object that extends the Player class)
+4. A PlayerFollowCamera
+
+In addition, you must mark the player as accessible by unique name (Right Click -> Access by unique name) and set its node name to \"Player\". The same has already been done for you with the PauseMenu.
+
+These are the base things you need to do in order for your project to function and be slotted into the final game. Otherwise you have relatively free reign. Be sure to take a look at test_environment.tscn in the DONOTEDITME folder for an example of what a level can look like and some of the features I have already implemented for you. Read the descriptions and documentation for any scenes and objects I have already premade. Ask any questions in the Discord if you have any. DO NOT EDIT ANYTHING IN THE \"DONOTEDITME\" FOLDER. I cannot guarantee I'll be able to merge your level into the final project if you do."
+script = ExtResource("1_7wnnl")
+
+[node name="PauseMenu" parent="." instance=ExtResource("2_fhrk2")]
+unique_name_in_owner = true
+editor_description = "This is the pause menu object instance. You shouldn't need to touch this at all so DO NOT TOUCH THIS."

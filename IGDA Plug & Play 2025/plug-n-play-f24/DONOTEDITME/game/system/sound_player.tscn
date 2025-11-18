@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dd2kg605ay01i"]
+
+[ext_resource type="Script" uid="uid://cg2a6lmfkvnyr" path="res://DONOTEDITME/game/system/sound_player.gd" id="1_w7ell"]
+[ext_resource type="AudioStream" uid="uid://c87t4mso8y1dw" path="res://DONOTEDITME/assets/sounds/music/Monkeys_Spinning_Monkeys_by_Kevin_MacLeod.ogg" id="2_o0x4m"]
+
+[node name="SoundPlayer" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_w7ell")
+sfx_min_vol = 0.0
+music_vol_mult = 0.7
+sfx_vol_mult = 5.0
+
+[node name="SongPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_o0x4m")
+bus = &"Music"

@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bipl7yj7vdf1m"]
+
+[ext_resource type="Script" uid="uid://00hwd1olo4f8" path="res://DONOTEDITME/game/sample/level_end_marker.gd" id="1_meh7v"]
+[ext_resource type="Texture2D" uid="uid://idiuh5cvdvnn" path="res://DONOTEDITME/assets/sprites/tilesheets/tilemap.png" id="2_vtte5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dstn7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17huy"]
+atlas = ExtResource("2_vtte5")
+region = Rect2(209, 95, 18, 18)
+
+[node name="LevelEndMarker" type="Area2D"]
+editor_description = "This is the end of level marker. The player must touch this marker in order to beat your level. You should not need to modify this object for the most part, unless you want to change the hitbox size of the level end marker or change the sprite of the marker."
+script = ExtResource("1_meh7v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dstn7")
+debug_color = Color(0.979859, 0.141346, 0, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_17huy")

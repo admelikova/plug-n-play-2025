@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=4 uid="uid://c2mqcqump028e"]
+
+[ext_resource type="Script" uid="uid://dm52hqu27lrbd" path="res://DONOTEDITME/game/system/level.gd" id="1_kp7xs"]
+[ext_resource type="PackedScene" uid="uid://cavhiq8b25tph" path="res://DONOTEDITME/menu/pause_menu.tscn" id="2_nvut2"]
+[ext_resource type="TileSet" uid="uid://b7temyiqwjg58" path="res://DONOTEDITME/game/sample/tilesets/kenney_tileset_compilation.tres" id="3_hmdux"]
+[ext_resource type="PackedScene" uid="uid://xb5i5ynpctpq" path="res://DONOTEDITME/game/sample/player/player_sample.tscn" id="4_fo4go"]
+[ext_resource type="PackedScene" uid="uid://xrv5a4vk77ic" path="res://DONOTEDITME/game/sample/player/player_follow_camera.tscn" id="5_uloyt"]
+
+[node name="Level" type="Node2D"]
+editor_description = "This is the base scene for your level! Your level must at the very least contain the following objects:
+1. A PauseMenu instance
+2. A level end marker (either as an individual scene or part of a tilemap)
+3. A Player (or some object that extends the Player class)
+4. A PlayerFollowCamera
+
+In addition, you must mark the player as accessible by unique name (Right Click -> Access by unique name) and set its node name to \"Player\". The same has already been done for you with the PauseMenu.
+
+These are the base things you need to do in order for your project to function and be slotted into the final game. Otherwise you have relatively free reign. Be sure to take a look at test_environment.tscn in the DONOTEDITME folder for an example of what a level can look like and some of the features I have already implemented for you. Read the descriptions and documentation for any scenes and objects I have already premade. Ask any questions in the Discord if you have any. DO NOT EDIT ANYTHING IN THE \"DONOTEDITME\" FOLDER. I cannot guarantee I'll be able to merge your level into the final project if you do."
+script = ExtResource("1_kp7xs")
+
+[node name="PauseMenu" parent="." instance=ExtResource("2_nvut2")]
+unique_name_in_owner = true
+editor_description = "This is the pause menu object instance. You shouldn't need to touch this at all so DO NOT TOUCH THIS."
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+editor_description = "This is a TileMapLayer, each TileMapLayer can have its own sets of tiles at different z layers (so certain layers appear in front of behind of others). I've provided a bunch of tiles for you to experiment with. The only really mandatory thing to put into the level is the Level End Marker which can be placed using this tilemap via the LevelElements tileset in the TileMap settings."
+tile_map_data = PackedByteArray("AAA7AB4AAgAAAAAAAQA/AB8AAAADAAAAAAA+AB8AAAACAAAAAAA9AB8AAAACAAAAAAA8AB8AAAACAAAAAAA7AB8AAAACAAAAAAA6AB8AAAACAAAAAAA5AB8AAAACAAAAAAA4AB8AAAACAAAAAAA3AB8AAAACAAAAAAA2AB8AAAACAAAAAAA1AB8AAAACAAAAAAA0AB8AAAACAAAAAAAzAB8AAAACAAAAAAAyAB8AAAACAAAAAAAxAB8AAAACAAAAAAAwAB8AAAACAAAAAAAvAB8AAAACAAAAAAAuAB8AAAACAAAAAAAtAB8AAAACAAAAAAAsAB8AAAACAAAAAAArAB8AAAACAAAAAAAqAB8AAAACAAAAAAApAB8AAAACAAAAAAAoAB8AAAACAAAAAAAnAB8AAAACAAAAAAAmAB8AAAACAAAAAAAlAB8AAAACAAAAAAAkAB8AAAACAAAAAAAjAB8AAAACAAAAAAAiAB8AAAACAAAAAAAhAB8AAAACAAAAAAAgAB8AAAACAAAAAAAfAB8AAAACAAAAAAAeAB8AAAACAAAAAAAdAB8AAAACAAAAAAAcAB8AAAACAAAAAAAbAB8AAAACAAAAAAAaAB8AAAACAAAAAAAZAB8AAAACAAAAAAAYAB8AAAACAAAAAAAXAB8AAAACAAAAAAAWAB8AAAACAAAAAAAVAB8AAAACAAAAAAAUAB8AAAACAAAAAAATAB8AAAACAAAAAAASAB8AAAACAAAAAAARAB8AAAACAAAAAAAQAB8AAAACAAAAAAAPAB8AAAACAAAAAAAOAB8AAAACAAAAAAANAB8AAAACAAAAAAAMAB8AAAACAAAAAAALAB8AAAACAAAAAAAKAB8AAAACAAAAAAAJAB8AAAACAAAAAAAIAB8AAAACAAAAAAAHAB8AAAACAAAAAAAGAB8AAAACAAAAAAAFAB8AAAACAAAAAAAEAB8AAAACAAAAAAADAB8AAAACAAAAAAACAB8AAAACAAAAAAABAB8AAAACAAAAAAAAAB8AAAABAAAAAAA=")
+tile_set = ExtResource("3_hmdux")
+
+[node name="Player" parent="." instance=ExtResource("4_fo4go")]
+unique_name_in_owner = true
+editor_description = "This is a very basic implementation of the player controller which has horizontal movement, jumping, and an animated sprite. DO NOT modify this packed scene or the player.gd script. You should instead create a script that extends the Player class and create a New Inherited Scene (by right clicking the player.tscn file and clicking \"New Inherited Scene\") to create your own custom player functionality.
+
+Feel free to replace this with your own custom Player, I only require that the player node's name must be \"Player\" and it must be made a unique name."
+position = Vector2(115, 484)
+
+[node name="PlayerFollowCamera" parent="." instance=ExtResource("5_uloyt")]
+editor_description = "This dynamic camera is used to follow the player up to certain bounds. You can see them in engine as a red box if you wanted to tweak the parameters the impact things like the zoom."
+position = Vector2(115, 484)

@@ -1,0 +1,41 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dicrejglob83v"]
+
+[ext_resource type="FontFile" uid="uid://dx7r2tfxdahfa" path="res://DONOTEDITME/assets/menu/VCR_OSD_MONO_1.001.ttf" id="1_ksymh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vgwl"]
+bg_color = Color(0.95, 0.95, 0.95, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evw1f"]
+bg_color = Color(0.9, 1, 0, 1)
+border_width_top = 20
+border_width_bottom = 20
+border_color = Color(0.9, 1, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s7tec"]
+
+[resource]
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.9, 1, 0, 1)
+Button/colors/font_hover_color = Color(0.9, 1, 0, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0)
+Button/colors/icon_focus_color = Color(1, 1, 1, 0)
+Button/colors/icon_hover_color = Color(1, 1, 1, 0)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 0)
+Button/colors/icon_normal_color = Color(1, 1, 1, 0)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 0)
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_ksymh")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_6vgwl")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_evw1f")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0)
+Label/constants/line_spacing = 3
+Label/constants/outline_size = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/constants/shadow_outline_size = 1
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("1_ksymh")
+Label/styles/normal = SubResource("StyleBoxEmpty_s7tec")

@@ -1,0 +1,141 @@
+[gd_scene load_steps=13 format=3 uid="uid://ddtvqrmkrbqmi"]
+
+[ext_resource type="Script" uid="uid://c6b1ddpptrw1y" path="res://DONOTEDITME/game/sample/hazards/enemies/basic enemies/walking_enemy.gd" id="1_8pu6f"]
+[ext_resource type="Texture2D" uid="uid://d0yopaahkep05" path="res://DONOTEDITME/assets/sprites/tilesheets/tilemap-characters.png" id="2_y25sc"]
+[ext_resource type="Script" uid="uid://jhheisykocn8" path="res://DONOTEDITME/game/sample/hazards/enemies/enemy_hitbox.gd" id="3_sjom4"]
+[ext_resource type="Script" uid="uid://cdh7hn4qls1di" path="res://DONOTEDITME/game/sample/hazards/enemies/enemy_one_way_hitbox.gd" id="4_fhr5v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_60pxy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5s3de"]
+size = Vector2(20, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5efrl"]
+size = Vector2(20, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ayhuk"]
+size = Vector2(14, 19)
+
+[sub_resource type="Animation" id="Animation_8co5n"]
+resource_name = "JUMP"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="Animation" id="Animation_56ax2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_idehs"]
+resource_name = "WALK"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4jysu"]
+_data = {
+"JUMP": SubResource("Animation_8co5n"),
+"RESET": SubResource("Animation_56ax2"),
+"WALK": SubResource("Animation_idehs")
+}
+
+[node name="LegallyDistinctEnemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_8pu6f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_60pxy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+texture = ExtResource("2_y25sc")
+hframes = 9
+vframes = 3
+frame = 6
+
+[node name="EnemyContactHitbox" type="Area2D" parent="."]
+editor_description = "This is one of two enemy hitboxes that the LegallyDistinctEnemyType has. This hitbox is specifically tailored to detect and handle player contact damage. Hence it is
+
+1. A one-way collider so it only triggers when the player jumps on the enemy
+
+2. Only the Player bit is selected in the collision mask (this only detects player colliders, not player projectiles)"
+collision_layer = 4
+collision_mask = 40
+script = ExtResource("3_sjom4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyContactHitbox"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_5s3de")
+debug_color = Color(1.68458e-06, 0.636292, 0.406711, 0.42)
+
+[node name="EnemyOneWayHitbox" type="Area2D" parent="."]
+editor_description = "This is one of two enemy hitboxes that the LegallyDistinctEnemyType has. This hitbox is specifically tailored to detect and handle player contact damage. Hence it is
+
+1. A one-way collider so it only triggers when the player jumps on the enemy
+
+2. Only the Player bit is selected in the collision mask (this only detects player colliders, not player projectiles)"
+position = Vector2(0, 8)
+collision_layer = 4
+script = ExtResource("4_fhr5v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyOneWayHitbox"]
+position = Vector2(0, -23.5)
+shape = SubResource("RectangleShape2D_5efrl")
+debug_color = Color(1.68458e-06, 0.636292, 0.406711, 0.42)
+
+[node name="EnemyHurtbox" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHurtbox"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ayhuk")
+debug_color = Color(0.984526, 0, 0.342716, 0.42)
+
+[node name="WallDetector" type="RayCast2D" parent="."]
+rotation = -1.00938
+target_position = Vector2(12.2449, 19.4695)
+collision_mask = 2
+
+[node name="GroundBlockDetector" type="RayCast2D" parent="."]
+rotation = -1.0088
+target_position = Vector2(0.612112, 29.1483)
+collision_mask = 10
+collide_with_areas = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4jysu")
+}
